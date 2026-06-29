@@ -4,7 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>英语声音游戏 - English Sound Game</title>
-  <script>p5.disableFriendlyErrors = true;</script>
+  <script>
+    // Must be set BEFORE loading p5.js — use window to avoid ReferenceError
+    window.p5 = window.p5 || {};
+    window.p5.disableFriendlyErrors = true;
+  </script>
   <script>
     window._p5LoadError = false;
   </script>

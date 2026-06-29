@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>测试</title>
+<style>
+  body { margin:0; background:#87CEEB; font-family:sans-serif; }
+  #msg { padding:40px; text-align:center; font-size:18px; }
+  button { font-size:24px; padding:20px 40px; border-radius:20px; background:#FF7043; color:#fff; border:none; margin-top:20px; }
+</style>
+</head>
+<body>
+<div id="msg">
+  🔍 基础测试<br>
+  <span id="info" style="font-size:14px;color:#555">检测中...</span>
+  <br>
+  <button onclick="testSpeech()">🔊 测试语音</button>
+  <div id="speechResult" style="margin-top:10px;font-size:14px;"></div>
+</div>
+
+<script>
+// Check basic page rendering
+document.getElementById('info').textContent = 
+  '屏幕: ' + window.innerWidth + 'x' + window.innerHeight +
+  ' | UA: ' + (navigator.userAgent.includes('Safari') ? 'Safari' : 'Other');
+
+// Test speech
+function testSpeech() {
+  let r = document.getElementById('speechResult');
+  if (!window.speechSynthesis) {
+    r.textContent = '❌ 语音不支持';
+    return;
+  }
+  r.textContent = '✅ 语音API可用，正在读...';
+  let u = new SpeechSynthesisUtterance('hello cat dog sun');
+  u.lang = 'en-US';
+  u.rate = 0.85;
+  u.pitch = 1.1;
+  u.onend = () => { r.textContent = '✅ 听到了吗？语音正常！'; };
+  u.onerror = (e) => { r.textContent = '❌ 语音出错: ' + e.error; };
+  speechSynthesis.speak(u);
+}
+</script>
+</body>
+</html>
