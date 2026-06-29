@@ -5,7 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>英语声音游戏 - English Sound Game</title>
   <script>p5.disableFriendlyErrors = true;</script>
-  <script src="https://cdn.jsdelivr.net/npm/p5@1.11.3/lib/p5.min.js"></script>
+  <script>
+    window._p5LoadError = false;
+  </script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/p5.js/1.11.3/p5.min.js"
+          onerror="window._p5LoadError=true;document.getElementById('loading-msg').innerHTML='😿 加载失败了...<br><span style=font-size:14px;color:#999>请切换到WiFi或4G网络后刷新页面</span>'"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { 
@@ -548,6 +552,13 @@ function drawGameScreen() {
 
 // --- p5.js Lifecycle ---
 function setup() {
+  try { _realSetup(); } catch(e) {
+    let lm = document.getElementById('loading-msg');
+    if (lm) lm.innerHTML = '🐛 出了点小问题...<br><span style="font-size:12px;color:#999">' + e.message + '<br>请截图发给爸爸</span>';
+    console.error(e);
+  }
+}
+function _realSetup() {
   // Responsive canvas
   let cw = min(windowWidth, windowHeight * 1.4);
   let ch = min(windowHeight, windowWidth * 0.72);
