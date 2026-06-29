@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>英语声音游戏 - English Sound Game</title>
   <script>p5.disableFriendlyErrors = true;</script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.11.3/lib/p5.min.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { 
@@ -23,7 +23,12 @@
   </style>
 </head>
 <body>
-  <div id="canvas-container"></div>
+  <div id="canvas-container">
+    <div id="loading-msg" style="text-align:center; padding-top:40vh; font-size:20px; color:#5D4037; font-family:sans-serif;">
+      🐱 正在加载小游戏...<br>
+      <span style="font-size:14px; color:#999;">如果一直卡住，请用浏览器打开而不是微信/QQ</span>
+    </div>
+  </div>
 
 <script>
 // ============================================================
@@ -548,6 +553,8 @@ function setup() {
   let ch = min(windowHeight, windowWidth * 0.72);
   let canvas = createCanvas(cw, ch);
   canvas.parent('canvas-container');
+  let lm = document.getElementById('loading-msg');
+  if (lm) lm.style.display = 'none';
   
   colorMode(RGB, 255, 255, 255, 255);
   
